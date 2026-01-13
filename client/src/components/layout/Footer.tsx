@@ -51,6 +51,7 @@ export function Footer() {
               <li><Link href="/services" className="hover:text-primary transition-colors">Cybersecurity</Link></li>
               <li><Link href="/services" className="hover:text-primary transition-colors">Broadband Solutions</Link></li>
               <li><Link href="/services" className="hover:text-primary transition-colors">Voice Solutions</Link></li>
+              <li><Link href="/private-cloud" className="hover:text-primary transition-colors">Private Cloud</Link></li>
             </ul>
           </div>
 

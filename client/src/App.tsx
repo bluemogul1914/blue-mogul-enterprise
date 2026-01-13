@@ -12,6 +12,7 @@ import { Footer } from "@/components/layout/Footer";
 // Pages
 import Home from "@/pages/Home";
 import Services from "@/pages/Services";
+import PrivateCloud from "@/pages/PrivateCloud";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import NotFound from "@/pages/not-found";
@@ -33,6 +34,7 @@ function Router() {
         <Switch>
           <Route path="/" component={Home} />
           <Route path="/services" component={Services} />
+          <Route path="/private-cloud" component={PrivateCloud} />
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
           <Route component={NotFound} />
