@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { insertMessageSchema, type InsertMessage } from "@shared/schema";
+import { insertMessageSchema, serviceOptions, type InsertMessage } from "@shared/schema";
 import { useCreateMessage } from "@/hooks/use-messages";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Send, Loader2, Shield, ExternalLink } from "lucide-react";
@@ -15,6 +15,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import { SectionHeading } from "@/components/ui/section-heading";
 
@@ -26,6 +33,7 @@ export default function Contact() {
     defaultValues: {
       name: "",
       email: "",
+      service: undefined,
       message: "",
     },
   });
@@ -218,6 +226,34 @@ export default function Contact() {
                           )}
                         />
                       </div>
+
+                      <FormField
+                        control={form.control}
+                        name="service"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>What services are you inquiring about?</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger 
+                                  className="h-12 bg-slate-50 border-slate-200 focus:bg-white transition-colors"
+                                  data-testid="select-service"
+                                >
+                                  <SelectValue placeholder="Select a service" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {serviceOptions.map((service) => (
+                                  <SelectItem key={service} value={service} data-testid={`option-${service.toLowerCase().replace(/\s+/g, '-')}`}>
+                                    {service}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                       
                       <FormField
                         control={form.control}
