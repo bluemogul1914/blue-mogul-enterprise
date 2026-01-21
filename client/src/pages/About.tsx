@@ -5,15 +5,14 @@ import { Button } from "@/components/ui/button";
 
 export default function About() {
   return (
-    <div className="bg-white pt-24">
+    <div className="bg-white min-h-screen">
        {/* Hero */}
-       <div className="bg-slate-900 text-white py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-primary/10"></div>
-         <div className="container-padding relative z-10 text-center">
+       <section className="bg-primary pt-32 pb-16">
+         <div className="container-padding text-center text-white">
            <motion.h1 
              initial={{ opacity: 0, y: 20 }}
              animate={{ opacity: 1, y: 0 }}
-             className="text-4xl md:text-6xl font-bold font-display mb-6"
+             className="text-4xl md:text-5xl font-bold font-display mb-4"
            >
              About Blue Mogul
            </motion.h1>
@@ -21,12 +20,12 @@ export default function About() {
              initial={{ opacity: 0, y: 20 }}
              animate={{ opacity: 1, y: 0 }}
              transition={{ delay: 0.1 }}
-             className="text-xl text-slate-300 max-w-3xl mx-auto"
+             className="text-xl text-blue-100 max-w-3xl mx-auto"
            >
              A veteran-owned managed service provider dedicated to empowering businesses with reliable, secure, and innovative technology solutions.
            </motion.p>
          </div>
-       </div>
+       </section>
 
        <div className="container-padding py-20">
          <div className="grid md:grid-cols-2 gap-16 items-start">

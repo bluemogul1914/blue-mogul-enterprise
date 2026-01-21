@@ -7,14 +7,14 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function Services() {
   return (
-    <div className="bg-white pt-24">
+    <div className="bg-white min-h-screen">
       {/* Header */}
-      <div className="bg-slate-50 border-b border-slate-100 py-20">
-        <div className="container-padding text-center">
+      <section className="bg-primary pt-32 pb-16">
+        <div className="container-padding text-center text-white">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl font-bold font-display text-slate-900 mb-6"
+            className="text-4xl md:text-5xl font-bold font-display mb-4"
           >
             Our Services
           </motion.h1>
@@ -22,12 +22,12 @@ export default function Services() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-slate-600 max-w-2xl mx-auto"
+            className="text-xl text-blue-100 max-w-2xl mx-auto"
           >
             Comprehensive IT solutions designed to optimize your business operations, enhance security, and provide reliable connectivity.
           </motion.p>
         </div>
-      </div>
+      </section>
 
       <div className="container-padding py-20 space-y-32">
         {/* Broadband */}
