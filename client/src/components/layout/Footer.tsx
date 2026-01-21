@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Shield, MapPin, Mail, Phone, Facebook, Linkedin, Twitter } from "lucide-react";
+import { Shield, MapPin, Mail, Phone, Facebook, Linkedin, Youtube, Instagram } from "lucide-react";
 
 export function Footer() {
   return (
@@ -20,14 +20,17 @@ export function Footer() {
               Veteran-owned managed service provider delivering enterprise-grade IT solutions for businesses, schools, and government agencies.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="p-2 rounded-full bg-slate-800 hover:bg-primary transition-colors text-white">
+              <a href="https://linkedin.com/company/bluemogul" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-slate-800 hover:bg-primary transition-colors text-white">
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a href="#" className="p-2 rounded-full bg-slate-800 hover:bg-primary transition-colors text-white">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a href="#" className="p-2 rounded-full bg-slate-800 hover:bg-primary transition-colors text-white">
+              <a href="https://www.facebook.com/BlueMogul/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-slate-800 hover:bg-primary transition-colors text-white">
                 <Facebook className="h-5 w-5" />
+              </a>
+              <a href="https://youtube.com/@bluemogul" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-slate-800 hover:bg-primary transition-colors text-white">
+                <Youtube className="h-5 w-5" />
+              </a>
+              <a href="https://www.instagram.com/getbluemogul/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-slate-800 hover:bg-primary transition-colors text-white">
+                <Instagram className="h-5 w-5" />
               </a>
             </div>
           </div>
