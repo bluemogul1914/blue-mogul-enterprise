@@ -160,7 +160,7 @@ export default function Services() {
 
       <section className="bg-primary py-16 text-center text-white">
         <div className="container-padding">
-          <h2 className="text-3xl font-bold mb-6">Need a custom solution?</h2>
+          <h2 className="text-3xl font-bold mb-6 text-white">Need a custom solution?</h2>
           <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
             Every business is unique. Contact us to discuss a tailored IT strategy that fits your specific goals and budget.
           </p>
