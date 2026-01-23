@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Shield, MapPin, Mail, Phone, Facebook, Linkedin, Youtube, Instagram } from "lucide-react";
+import { MapPin, Mail, Phone, Facebook, Linkedin, Youtube, Instagram } from "lucide-react";
 
 export function Footer() {
   return (
@@ -8,13 +8,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="space-y-6">
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="p-2 bg-primary rounded-lg text-white">
-                <Shield className="h-6 w-6" />
-              </div>
-              <span className="text-xl font-display font-bold text-white tracking-tight">
-                Blue Mogul
-              </span>
+            <Link href="/" className="flex items-center group">
+              <img 
+                src="/logo.png" 
+                alt="Blue Mogul" 
+                className="h-10 w-auto"
+              />
             </Link>
             <p className="text-slate-400 leading-relaxed">
               Veteran-owned managed service provider delivering enterprise-grade IT solutions for businesses, schools, and government agencies.

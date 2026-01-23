@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Menu, X, Shield } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -37,16 +37,12 @@ export function Navbar() {
     >
       <div className="container-padding flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="p-2 bg-primary rounded-lg text-white group-hover:bg-blue-700 transition-colors">
-            <Shield className="h-6 w-6" />
-          </div>
-          <span className={cn(
-            "text-xl font-display font-bold tracking-tight",
-            scrolled ? "text-slate-900" : "text-slate-900 lg:text-slate-900"
-          )}>
-            Blue Mogul
-          </span>
+        <Link href="/" className="flex items-center group">
+          <img 
+            src="/logo.png" 
+            alt="Blue Mogul" 
+            className="h-10 w-auto"
+          />
         </Link>
 
         {/* Desktop Nav */}
