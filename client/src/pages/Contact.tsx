@@ -113,8 +113,8 @@ export default function Contact() {
                     <Mail className="w-7 h-7 text-primary" />
                   </div>
                   <h3 className="font-bold text-lg text-slate-900 mb-3">Email</h3>
-                  <a href="mailto:contact@bluemogul.us" className="text-primary font-semibold text-lg hover:underline block mb-2">
-                    contact@bluemogul.us
+                  <a href="mailto:contact@bluemogul.biz" className="text-primary font-semibold text-lg hover:underline block mb-2">
+                    contact@bluemogul.biz
                   </a>
                   <p className="text-sm text-slate-500">Response within 4 business hours</p>
                 </CardContent>
@@ -336,7 +336,7 @@ export default function Contact() {
                 Call Now
               </Button>
             </a>
-            <a href="mailto:contact@bluemogul.us">
+            <a href="mailto:contact@bluemogul.biz">
               <Button size="lg" variant="outline" className="h-12 px-8 text-white border-white/30 hover:bg-white/10 font-bold">
                 <Mail className="mr-2 h-5 w-5" />
                 Email Us
