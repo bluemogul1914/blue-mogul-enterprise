@@ -113,7 +113,7 @@ export default function ClientPortal() {
             </a>
             <a href="tel:+13463095514">
               <Button size="lg" className="h-12 px-8" data-testid="button-call-now">
-                Call (346) 309-5514
+                Call 346.309.5514
               </Button>
             </a>
           </div>

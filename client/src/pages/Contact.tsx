@@ -92,7 +92,7 @@ export default function Contact() {
                   </div>
                   <h3 className="font-bold text-lg text-slate-900 mb-3">Phone</h3>
                   <a href="tel:+13463095514" className="text-primary font-semibold text-lg hover:underline block mb-2">
-                    (346) 309-5514
+                    346.309.5514
                   </a>
                   <p className="text-sm text-slate-500">Monday-Friday: 8 AM - 6 PM CST</p>
                   <p className="text-sm text-slate-500">Emergency support available 24/7</p>
@@ -242,9 +242,9 @@ export default function Contact() {
                                   <SelectValue placeholder="Select a service" />
                                 </SelectTrigger>
                               </FormControl>
-                              <SelectContent>
+                              <SelectContent className="z-50">
                                 {serviceOptions.map((service) => (
-                                  <SelectItem key={service} value={service} data-testid={`option-${service.toLowerCase().replace(/\s+/g, '-')}`}>
+                                  <SelectItem key={service} value={service} className="py-3 px-4" data-testid={`option-${service.toLowerCase().replace(/\s+/g, '-')}`}>
                                     {service}
                                   </SelectItem>
                                 ))}

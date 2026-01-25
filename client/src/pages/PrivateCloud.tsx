@@ -206,7 +206,7 @@ export default function PrivateCloud() {
               },
               {
                 title: "Full Support",
-                desc: "US-based expert help, training included. Phone: (346) 309-5514. Same-day response.",
+                desc: "US-based expert help, training included. Phone: 346.309.5514. Same-day response.",
                 icon: Users
               },
               {
@@ -567,7 +567,7 @@ export default function PrivateCloud() {
                 {[
                   "Real MSP, Not Just Hosting - Complete IT infrastructure management",
                   "Custom Solutions - Every business is different, we tailor to your needs",
-                  "Direct Phone Support - Call (346) 309-5514 - we actually answer",
+                  "Direct Phone Support - Call 346.309.5514 - we actually answer",
                   "Fast Deployment - Most setups completed within 2-3 business days",
                   "Long-Term Partnership - We're here for the life of your business"
                 ].map((item, idx) => (
@@ -606,7 +606,7 @@ export default function PrivateCloud() {
             <a href="tel:+13463095514">
               <Button size="lg" variant="outline" className="h-14 px-8 text-white border-white/30 hover:bg-white/10 font-bold text-lg">
                 <Phone className="mr-2 h-5 w-5" />
-                (346) 309-5514
+                346.309.5514
               </Button>
             </a>
           </div>
