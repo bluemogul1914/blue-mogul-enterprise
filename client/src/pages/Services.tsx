@@ -67,7 +67,7 @@ export default function Services() {
           >
             {/* fiber optics abstract */}
             <img 
-              src="https://pixabay.com/get/g0514ee9a9322e7411c717742ff2bb2a0c24f8672c6448112d5c7111e44df584491f5f9882ec512b5454a25c3f9fdc8f38bd77a281ed1c208db30e05201a69766_1280.jpg"
+              src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=2070&auto=format&fit=crop"
               alt="Broadband Solutions"
               className="rounded-2xl shadow-2xl"
             />
