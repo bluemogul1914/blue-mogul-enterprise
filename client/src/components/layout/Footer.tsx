@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Shield, MapPin, Mail, Phone, Facebook, Linkedin, Youtube, Instagram } from "lucide-react";
+import { Shield, MapPin, Mail, Phone, Facebook, Linkedin } from "lucide-react";
 
 export function Footer() {
   return (
@@ -25,12 +25,6 @@ export function Footer() {
               </a>
               <a href="https://www.facebook.com/BlueMogul/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-slate-800 hover:bg-primary transition-colors text-white">
                 <Facebook className="h-5 w-5" />
-              </a>
-              <a href="https://youtube.com/@bluemogul" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-slate-800 hover:bg-primary transition-colors text-white">
-                <Youtube className="h-5 w-5" />
-              </a>
-              <a href="https://www.instagram.com/getbluemogul/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-slate-800 hover:bg-primary transition-colors text-white">
-                <Instagram className="h-5 w-5" />
               </a>
             </div>
           </div>
