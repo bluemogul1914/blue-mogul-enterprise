@@ -15,7 +15,7 @@ const portals = [
   {
     title: "Client Portal",
     description: "Manage your account, view invoices, submit support tickets, and access your service dashboard.",
-    url: "https://portal.bluemogul.us",
+    url: "https://itflow.bluemogul.us/client",
     icon: Users,
     features: ["Account Management", "Billing & Invoices", "Support Tickets", "Service Dashboard"]
   }
