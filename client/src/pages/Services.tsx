@@ -104,7 +104,7 @@ export default function Services() {
               Modernize your communications with our advanced voice systems. From Cloud PBX to SIP Trunking, we ensure crystal clear communication for your team and clients.
             </p>
             <ul className="space-y-3 mb-8">
-              {["Cloud PBX Systems", "SIP Trunking", "Unified Communications", "Traditional Voice Lines"].map(item => (
+              {["Cloud PBX Systems", "SIP Trunking", "Unified Communications"].map(item => (
                 <li key={item} className="flex items-center gap-3 text-slate-700">
                   <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center shrink-0">
                     <Check className="w-4 h-4 text-green-600" />
