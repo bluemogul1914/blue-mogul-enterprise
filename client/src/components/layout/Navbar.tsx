@@ -6,10 +6,8 @@ import { cn } from "@/lib/utils";
 
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "Services", href: "/services" },
-  { name: "Private Cloud", href: "/private-cloud" },
   { name: "About", href: "/about" },
-  { name: "Client Portal", href: "/client-portal" },
+  { name: "Services", href: "/services" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -65,9 +63,9 @@ export function Navbar() {
               {item.name}
             </Link>
           ))}
-          <Link href="/contact">
+          <Link href="/client-portal">
             <Button className="font-semibold shadow-lg shadow-primary/20 hover:shadow-primary/30">
-              Get Started
+              Client Portal
             </Button>
           </Link>
         </div>
@@ -100,8 +98,8 @@ export function Navbar() {
                 {item.name}
               </Link>
             ))}
-            <Link href="/contact" onClick={() => setIsOpen(false)}>
-              <Button className="w-full">Get Started</Button>
+            <Link href="/client-portal" onClick={() => setIsOpen(false)}>
+              <Button className="w-full">Client Portal</Button>
             </Link>
           </div>
         </div>
