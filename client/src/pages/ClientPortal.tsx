@@ -6,9 +6,9 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 const portals = [
   {
-    title: "UISP Network Portal",
+    title: "Blue Mogul Fiber",
     description: "Access network management, service monitoring, and usage statistics for your broadband connection.",
-    url: "https://uisp.bluemogul.us/nms/login",
+    url: "https://uisp.bluemogul.us/crm/login",
     icon: Wifi,
     features: ["Network Status", "Usage Statistics", "Service Monitoring", "Connection Details"]
   },
