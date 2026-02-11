@@ -53,11 +53,10 @@ export default function About() {
            
            <div className="relative">
              <div className="absolute inset-0 bg-primary/20 transform rotate-3 rounded-2xl"></div>
-             {/* office team meeting */}
              <img 
-               src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
-               alt="Our Team"
-               className="relative rounded-2xl shadow-2xl z-10"
+               src="/favicon.png"
+               alt="Blue Mogul"
+               className="relative rounded-2xl shadow-2xl z-10 w-full bg-slate-900 p-8 object-contain"
              />
            </div>
          </div>
