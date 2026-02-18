@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { insertMessageSchema, messages } from "./schema";
+import { insertMessageSchema, messages, insertBlogPostSchema, blogPosts } from "./schema";
 
 export const errorSchemas = {
   validation: z.object({
@@ -24,6 +24,33 @@ export const api = {
         201: z.custom<typeof messages.$inferSelect>(),
         400: errorSchemas.validation,
       },
+    },
+  },
+  blog: {
+    list: {
+      method: "GET" as const,
+      path: "/api/blog",
+    },
+    getBySlug: {
+      method: "GET" as const,
+      path: "/api/blog/:slug",
+    },
+    create: {
+      method: "POST" as const,
+      path: "/api/blog",
+      input: insertBlogPostSchema,
+      responses: {
+        201: z.custom<typeof blogPosts.$inferSelect>(),
+        400: errorSchemas.validation,
+      },
+    },
+    update: {
+      method: "PATCH" as const,
+      path: "/api/blog/:id",
+    },
+    delete: {
+      method: "DELETE" as const,
+      path: "/api/blog/:id",
     },
   },
 };

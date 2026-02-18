@@ -16,6 +16,8 @@ import PrivateCloud from "@/pages/PrivateCloud";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import ClientPortal from "@/pages/ClientPortal";
+import Blog from "@/pages/Blog";
+import BlogPost from "@/pages/BlogPost";
 import NotFound from "@/pages/not-found";
 
 function ScrollToTop() {
@@ -39,6 +41,8 @@ function Router() {
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
           <Route path="/client-portal" component={ClientPortal} />
+          <Route path="/blog" component={Blog} />
+          <Route path="/blog/:slug" component={BlogPost} />
           <Route component={NotFound} />
         </Switch>
       </main>

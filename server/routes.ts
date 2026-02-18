@@ -4,6 +4,7 @@ import { storage } from "./storage";
 import { api } from "@shared/routes";
 import { z } from "zod";
 import { createHubSpotContact } from "./hubspot";
+import { insertBlogPostSchema } from "@shared/schema";
 
 export async function registerRoutes(
   httpServer: Server,
@@ -13,10 +14,8 @@ export async function registerRoutes(
     try {
       const input = api.messages.create.input.parse(req.body);
       
-      // Save to local database
       const message = await storage.createMessage(input);
       
-      // Send to HubSpot
       try {
         await createHubSpotContact({
           name: input.name,
@@ -26,7 +25,6 @@ export async function registerRoutes(
         });
       } catch (hubspotError) {
         console.error('HubSpot submission error:', hubspotError);
-        // Continue even if HubSpot fails - we still have the local record
       }
       
       res.status(201).json(message);
@@ -39,6 +37,74 @@ export async function registerRoutes(
       }
       throw err;
     }
+  });
+
+  app.get(api.blog.list.path, async (_req, res) => {
+    const posts = await storage.getBlogPosts();
+    res.json(posts);
+  });
+
+  app.get(api.blog.getBySlug.path, async (req, res) => {
+    const post = await storage.getBlogPostBySlug(req.params.slug);
+    if (!post) {
+      return res.status(404).json({ message: "Blog post not found" });
+    }
+    res.json(post);
+  });
+
+  app.post(api.blog.create.path, async (req, res) => {
+    try {
+      const input = insertBlogPostSchema.parse(req.body);
+      const post = await storage.createBlogPost(input);
+      res.status(201).json(post);
+    } catch (err: any) {
+      if (err instanceof z.ZodError) {
+        return res.status(400).json({
+          message: err.errors[0].message,
+          field: err.errors[0].path.join('.'),
+        });
+      }
+      if (err?.code === '23505') {
+        return res.status(409).json({ message: "A blog post with this slug already exists" });
+      }
+      throw err;
+    }
+  });
+
+  app.patch("/api/blog/:id", async (req, res) => {
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+      return res.status(400).json({ message: "Invalid blog post ID" });
+    }
+    try {
+      const partialSchema = insertBlogPostSchema.partial();
+      const input = partialSchema.parse(req.body);
+      const updated = await storage.updateBlogPost(id, input);
+      if (!updated) {
+        return res.status(404).json({ message: "Blog post not found" });
+      }
+      res.json(updated);
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        return res.status(400).json({
+          message: err.errors[0].message,
+          field: err.errors[0].path.join('.'),
+        });
+      }
+      throw err;
+    }
+  });
+
+  app.delete("/api/blog/:id", async (req, res) => {
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+      return res.status(400).json({ message: "Invalid blog post ID" });
+    }
+    const deleted = await storage.deleteBlogPost(id);
+    if (!deleted) {
+      return res.status(404).json({ message: "Blog post not found" });
+    }
+    res.json({ message: "Blog post deleted" });
   });
 
   return httpServer;
