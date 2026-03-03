@@ -1,25 +1,16 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Users, Wifi } from "lucide-react";
+import { ExternalLink, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SectionHeading } from "@/components/ui/section-heading";
 
-const portals = [
-  {
-    title: "Blue Mogul Fiber",
-    description: "Access network management, service monitoring, and usage statistics for your broadband connection.",
-    url: "https://uisp.bluemogul.us/crm/login",
-    icon: Wifi,
-    features: ["Network Status", "Usage Statistics", "Service Monitoring", "Connection Details"]
-  },
-  {
-    title: "Client Portal",
-    description: "Manage your account, view invoices, submit support tickets, and access your service dashboard.",
-    url: "https://portal.bluemogul.biz/portal",
-    icon: Users,
-    features: ["Account Management", "Billing & Invoices", "Support Tickets", "Service Dashboard"]
-  }
-];
+const portal = {
+  title: "Client Portal",
+  description: "Your all-in-one hub for managing your Blue Mogul services. Access network management, monitor your broadband connection, manage your account, view invoices, and submit support tickets.",
+  url: "https://portal.bluemogul.biz/portal",
+  icon: Users,
+  features: ["Network Status & Monitoring", "Usage Statistics", "Account Management", "Billing & Invoices", "Support Tickets", "Service Dashboard"]
+};
 
 export default function ClientPortal() {
   return (
@@ -49,51 +40,47 @@ export default function ClientPortal() {
       <section className="py-20">
         <div className="container-padding">
           <SectionHeading 
-            title="Access Your Portals" 
-            subtitle="Choose the portal that best fits your needs. Our network portal provides technical insights while the client portal handles account and billing management."
+            title="Access Your Portal" 
+            subtitle="Manage all your Blue Mogul services from one convenient location."
           />
           
-          <div className="grid md:grid-cols-2 gap-8 mt-12 max-w-5xl mx-auto">
-            {portals.map((portal, index) => (
-              <motion.div 
-                key={portal.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Card className="h-full hover:shadow-xl transition-shadow">
-                  <CardContent className="p-8">
-                    <div className="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center mb-6">
-                      <portal.icon className="w-8 h-8 text-primary" />
-                    </div>
-                    
-                    <h3 className="text-2xl font-bold text-slate-900 mb-3">{portal.title}</h3>
-                    <p className="text-slate-600 mb-6">{portal.description}</p>
-                    
-                    <ul className="space-y-2 mb-8">
-                      {portal.features.map((feature) => (
-                        <li key={feature} className="flex items-center gap-2 text-slate-600">
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                    
-                    <a 
-                      href={portal.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                    >
-                      <Button className="w-full h-12" size="lg" data-testid={`button-portal-${index}`}>
-                        Access Portal
-                        <ExternalLink className="ml-2 h-5 w-5" />
-                      </Button>
-                    </a>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+          <div className="mt-12 max-w-2xl mx-auto">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <Card className="hover:shadow-xl transition-shadow">
+                <CardContent className="p-8">
+                  <div className="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center mb-6">
+                    <portal.icon className="w-8 h-8 text-primary" />
+                  </div>
+                  
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3">{portal.title}</h3>
+                  <p className="text-slate-600 mb-6">{portal.description}</p>
+                  
+                  <div className="grid sm:grid-cols-2 gap-2 mb-8">
+                    {portal.features.map((feature) => (
+                      <div key={feature} className="flex items-center gap-2 text-slate-600">
+                        <div className="w-1.5 h-1.5 bg-primary rounded-full" />
+                        {feature}
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <a 
+                    href={portal.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <Button className="w-full h-12" size="lg" data-testid="button-portal-access">
+                      Access Portal
+                      <ExternalLink className="ml-2 h-5 w-5" />
+                    </Button>
+                  </a>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
         </div>
       </section>
