@@ -52,11 +52,13 @@ export default function ClientPortal() {
             >
               <Card className="hover:shadow-xl transition-shadow">
                 <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center mb-6">
-                    <portal.icon className="w-8 h-8 text-primary" />
+                  <div className="flex justify-center mb-6">
+                    <div className="w-16 h-16 bg-blue-50 rounded-xl flex items-center justify-center">
+                      <portal.icon className="w-8 h-8 text-primary" />
+                    </div>
                   </div>
                   
-                  <h3 className="text-2xl font-bold text-slate-900 mb-3">{portal.title}</h3>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3 text-center">{portal.title}</h3>
                   <p className="text-slate-600 mb-6">{portal.description}</p>
                   
                   <div className="grid sm:grid-cols-2 gap-2 mb-8">
