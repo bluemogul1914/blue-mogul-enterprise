@@ -1,0 +1,20 @@
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" style="display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #1a2b4c; color: white; padding: 15px; text-align: center; z-index: 9999;">
+    <p style="margin: 0; display: inline-block; margin-right: 20px;">
+        We use cookies to enhance your experience. By continuing, you agree to our 
+        <a href="/privacy" style="color: #ffd700;">Privacy Policy</a> and 
+        <a href="/terms" style="color: #ffd700;">Terms</a>.
+    </p>
+    <button onclick="acceptCookies()" style="background: #ffd700; color: #1a2b4c; border: none; padding: 8px 20px; border-radius: 4px; cursor: pointer; font-weight: bold;">Accept</button>
+</div>
+
+<script>
+    if (!localStorage.getItem('cookiesAccepted')) {
+        document.getElementById('cookie-banner').style.display = 'block';
+    }
+    
+    function acceptCookies() {
+        localStorage.setItem('cookiesAccepted', 'true');
+        document.getElementById('cookie-banner').style.display = 'none';
+    }
+</script>

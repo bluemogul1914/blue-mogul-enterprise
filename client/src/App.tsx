@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/ui/ChatWidget";
+import { CookieBanner } from "@/components/ui/CookieBanner";
 
 // Pages
 import Home from "@/pages/Home";
@@ -19,6 +20,9 @@ import Contact from "@/pages/Contact";
 import ClientPortal from "@/pages/ClientPortal";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
+import Privacy from "@/pages/Privacy";
+import Terms from "@/pages/Terms";
+import Gdpr from "@/pages/Gdpr";
 import NotFound from "@/pages/not-found";
 
 function ScrollToTop() {
@@ -44,11 +48,15 @@ function Router() {
           <Route path="/client-portal" component={ClientPortal} />
           <Route path="/blog" component={Blog} />
           <Route path="/blog/:slug" component={BlogPost} />
+          <Route path="/privacy" component={Privacy} />
+          <Route path="/terms" component={Terms} />
+          <Route path="/gdpr" component={Gdpr} />
           <Route component={NotFound} />
         </Switch>
       </main>
       <Footer />
       <ChatWidget />
+      <CookieBanner />
     </div>
   );
 }

@@ -37,6 +37,8 @@ export function Footer() {
               <li><Link href="/services" className="hover:text-primary transition-colors">Services</Link></li>
               <li><Link href="/contact" className="hover:text-primary transition-colors">Contact</Link></li>
               <li><Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="hover:text-primary transition-colors">Terms of Service</Link></li>
+              <li><Link href="/gdpr" className="hover:text-primary transition-colors">GDPR</Link></li>
             </ul>
           </div>
 
@@ -72,10 +74,11 @@ export function Footer() {
         </div>
 
         <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
-          <p>© {new Date().getFullYear()} Blue Mogul Enterprise. All rights reserved.</p>
+          <p>© 2026 Blue Mogul Enterprise, LLC. All rights reserved. | Veteran-Owned | Houston, Texas</p>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link href="/gdpr" className="hover:text-white transition-colors">GDPR</Link>
           </div>
         </div>
       </div>
