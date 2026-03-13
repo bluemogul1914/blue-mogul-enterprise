@@ -17,7 +17,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-slate-400 leading-relaxed">
-              Veteran-owned Houston firm providing managed IT, private cloud, and enterprise connectivity across Texas, Louisiana, and North Carolina—without per-user fees or data mining.
+              Veteran-owned Houston MSP delivering private cloud, managed IT, and enterprise connectivity across Texas, Louisiana, and North Carolina.
             </p>
             <div className="flex gap-4">
               <a href="https://linkedin.com/company/bluemogul" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-slate-800 hover:bg-primary transition-colors text-white">
