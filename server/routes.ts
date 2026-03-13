@@ -166,5 +166,113 @@ export async function registerRoutes(
     }
   });
 
+  // ── Facebook Messenger Webhook ──────────────────────────────────────────
+
+  // Step 1: Webhook verification (Facebook sends a GET to confirm the URL)
+  app.get("/api/facebook-webhook", (req, res) => {
+    const verifyToken = process.env.META_VERIFY_TOKEN;
+    const mode = req.query["hub.mode"];
+    const token = req.query["hub.verify_token"];
+    const challenge = req.query["hub.challenge"];
+
+    console.log("[FB Webhook] Verification request received");
+    console.log(`[FB Webhook] mode=${mode}, token=${token}`);
+
+    if (mode === "subscribe" && token === verifyToken) {
+      console.log("[FB Webhook] Verified successfully");
+      return res.status(200).send(challenge);
+    }
+
+    console.error("[FB Webhook] Verification failed — token mismatch or wrong mode");
+    return res.status(403).json({ message: "Verification failed" });
+  });
+
+  // Step 2: Receive messages from Facebook and reply via AnythingLLM
+  app.post("/api/facebook-webhook", async (req, res) => {
+    const body = req.body;
+
+    console.log("[FB Webhook] Incoming payload:", JSON.stringify(body, null, 2));
+
+    if (body.object !== "page") {
+      return res.status(404).json({ message: "Not a page event" });
+    }
+
+    // Acknowledge receipt immediately (Facebook requires a 200 within 5 seconds)
+    res.status(200).send("EVENT_RECEIVED");
+
+    const pageAccessToken = process.env.META_PAGE_ACCESS_TOKEN;
+    const apiKey = process.env.ANYTHINGLLM_API_KEY;
+
+    if (!pageAccessToken || !apiKey) {
+      console.error("[FB Webhook] Missing META_PAGE_ACCESS_TOKEN or ANYTHINGLLM_API_KEY");
+      return;
+    }
+
+    for (const entry of body.entry ?? []) {
+      for (const event of entry.messaging ?? []) {
+        const senderId = event.sender?.id;
+
+        if (!senderId || !event.message?.text) {
+          console.log("[FB Webhook] Skipping non-text or no-sender event");
+          continue;
+        }
+
+        const userMessage = event.message.text;
+        console.log(`[FB Webhook] Message from ${senderId}: ${userMessage}`);
+
+        try {
+          // Forward to AnythingLLM
+          const llmPayload = {
+            message: userMessage,
+            mode: "query",
+            sessionId: `fb-${senderId}`,
+          };
+
+          console.log("[FB Webhook] Sending to AnythingLLM:", JSON.stringify(llmPayload));
+
+          const llmRes = await fetch(
+            "https://anythingllm.bluemogul.us/api/v1/workspace/customer-support-kb/chat",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apiKey}`,
+              },
+              body: JSON.stringify(llmPayload),
+            }
+          );
+
+          const rawText = await llmRes.text();
+          console.log(`[FB Webhook] AnythingLLM status: ${llmRes.status}`);
+          console.log(`[FB Webhook] AnythingLLM body: ${rawText}`);
+
+          let llmData: any = {};
+          try { llmData = JSON.parse(rawText); } catch {}
+
+          const reply = llmData.textResponse || llmData.text || llmData.message
+            || "Thanks for reaching out! Our team will follow up with you shortly. You can also call us at 346.309.5514.";
+
+          // Send reply back to Facebook user
+          const fbRes = await fetch(
+            `https://graph.facebook.com/v19.0/me/messages?access_token=${pageAccessToken}`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                recipient: { id: senderId },
+                message: { text: reply },
+              }),
+            }
+          );
+
+          const fbBody = await fbRes.text();
+          console.log(`[FB Webhook] FB send status: ${fbRes.status}, body: ${fbBody}`);
+        } catch (err: any) {
+          console.error(`[FB Webhook] Error processing message from ${senderId}:`, err.message);
+        }
+      }
+    }
+  });
+
   return httpServer;
 }
