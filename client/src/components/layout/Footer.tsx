@@ -17,7 +17,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-slate-400 leading-relaxed">
-              Blue Mogul Enterprise brings military precision to business technology. As a veteran-owned Houston firm, we provide managed IT services, private cloud hosting, and enterprise connectivity to organizations across Texas, Louisiana, and North Carolina. We exist to give you complete control over your data while eliminating the per-user fees and privacy concerns of mainstream providers.
+              Veteran-owned Houston firm providing managed IT, private cloud, and enterprise connectivity across Texas, Louisiana, and North Carolina—without per-user fees or data mining.
             </p>
             <div className="flex gap-4">
               <a href="https://linkedin.com/company/bluemogul" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full bg-slate-800 hover:bg-primary transition-colors text-white">
