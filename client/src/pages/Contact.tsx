@@ -155,7 +155,7 @@ export default function Contact() {
                   <h3 className="font-bold text-lg text-slate-900 mb-3">Try Our Demo</h3>
                   <p className="text-sm text-slate-500 mb-3">Experience our Nextcloud private cloud solution firsthand</p>
                   <a 
-                    href="https://demo.bluemogul.us/" 
+                    href="https://nextcloud.bluemogul.biz/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-primary font-semibold hover:underline"
