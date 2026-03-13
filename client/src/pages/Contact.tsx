@@ -74,7 +74,7 @@ export default function Contact() {
         <div className="container-padding">
           <SectionHeading 
             title="Get in Touch" 
-            subtitle="Have an urgent issue or prefer to speak directly? Use the contact information below to reach our team during business hours (8am-6pm CT, Monday through Friday). Emergency support available 24/7."
+            subtitle="Have an urgent issue or prefer to speak directly? Use the contact information below to reach our team during business hours (8am-6pm CT, Monday through Friday)."
           />
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
@@ -95,7 +95,6 @@ export default function Contact() {
                     346.309.5514
                   </a>
                   <p className="text-sm text-slate-500">Monday-Friday: 8 AM - 6 PM CST</p>
-                  <p className="text-sm text-slate-500">Emergency support available 24/7</p>
                 </CardContent>
               </Card>
             </motion.div>
