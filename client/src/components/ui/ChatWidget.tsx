@@ -8,6 +8,55 @@ interface Message {
   text: string;
 }
 
+function formatMessage(text: string) {
+  const lines = text.split("\n");
+  const result: JSX.Element[] = [];
+  let listItems: string[] = [];
+  let keyCounter = 0;
+
+  const flushList = () => {
+    if (listItems.length > 0) {
+      result.push(
+        <ul key={`ul-${keyCounter++}`} className="space-y-1 my-1 pl-1">
+          {listItems.map((item, i) => (
+            <li key={i} className="flex gap-2">
+              <span className="text-primary mt-1 flex-shrink-0">•</span>
+              <span dangerouslySetInnerHTML={{ __html: inlineFormat(item) }} />
+            </li>
+          ))}
+        </ul>
+      );
+      listItems = [];
+    }
+  };
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) {
+      flushList();
+      continue;
+    }
+    const listMatch = trimmed.match(/^[\-\*\d+\.]\s+(.+)/);
+    if (listMatch) {
+      listItems.push(listMatch[1]);
+    } else {
+      flushList();
+      result.push(
+        <p key={`p-${keyCounter++}`} className="mb-1 last:mb-0" dangerouslySetInnerHTML={{ __html: inlineFormat(trimmed) }} />
+      );
+    }
+  }
+  flushList();
+  return result;
+}
+
+function inlineFormat(text: string): string {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*(.+?)\*/g, "<em>$1</em>")
+    .replace(/`(.+?)`/g, "<code class='bg-slate-100 px-1 rounded text-xs'>$1</code>");
+}
+
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -48,20 +97,15 @@ export function ChatWidget() {
 
       const data = await res.json();
 
-      if (!res.ok) {
-        setMessages((prev) => [
-          ...prev,
-          {
-            role: "assistant",
-            text: data.message || "Sorry, something went wrong. Please try again.",
-          },
-        ]);
-      } else {
-        setMessages((prev) => [
-          ...prev,
-          { role: "assistant", text: data.reply },
-        ]);
-      }
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          text: res.ok
+            ? data.reply
+            : "I'm sorry, I wasn't able to process that request. Please try again or contact us directly at 346.309.5514.",
+        },
+      ]);
     } catch {
       setMessages((prev) => [
         ...prev,
@@ -88,68 +132,77 @@ export function ChatWidget() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="w-[350px] bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden"
-            style={{ maxHeight: "520px" }}
+            className="w-[360px] bg-white rounded-2xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden"
+            style={{ height: "500px" }}
             data-testid="chat-window"
           >
             {/* Header */}
-            <div className="bg-primary px-4 py-3 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                  <Bot className="w-4 h-4 text-white" />
+            <div className="bg-primary px-4 py-3 flex items-center justify-between flex-shrink-0">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center">
+                  <Bot className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <p className="text-white font-semibold text-sm">Blue Mogul Support</p>
-                  <p className="text-blue-200 text-xs">Ask me anything</p>
+                  <p className="text-white font-semibold text-sm leading-tight">Blue Mogul Support</p>
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                    <p className="text-blue-200 text-xs">Online · Ask me anything</p>
+                  </div>
                 </div>
               </div>
               <button
                 onClick={() => setOpen(false)}
-                className="text-white/70 hover:text-white transition-colors"
+                className="text-white/70 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/10"
                 data-testid="button-chat-close"
                 aria-label="Close chat"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-50">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50 min-h-0">
               {messages.map((msg, i) => (
                 <div
                   key={i}
-                  className={`flex gap-2 ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}
+                  className={`flex gap-2.5 ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}
                   data-testid={`chat-message-${msg.role}-${i}`}
                 >
                   <div
-                    className={`w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center ${
-                      msg.role === "assistant" ? "bg-primary" : "bg-slate-300"
+                    className={`w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5 ${
+                      msg.role === "assistant" ? "bg-primary" : "bg-slate-400"
                     }`}
                   >
                     {msg.role === "assistant" ? (
                       <Bot className="w-3.5 h-3.5 text-white" />
                     ) : (
-                      <User className="w-3.5 h-3.5 text-slate-600" />
+                      <User className="w-3.5 h-3.5 text-white" />
                     )}
                   </div>
                   <div
-                    className={`max-w-[75%] px-3 py-2 rounded-2xl text-sm leading-relaxed ${
+                    className={`max-w-[78%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed ${
                       msg.role === "assistant"
-                        ? "bg-white text-slate-700 shadow-sm rounded-tl-sm"
-                        : "bg-primary text-white rounded-tr-sm"
+                        ? "bg-white text-slate-700 shadow-sm rounded-tl-none border border-slate-100"
+                        : "bg-primary text-white rounded-tr-none"
                     }`}
                   >
-                    {msg.text}
+                    {msg.role === "assistant" ? (
+                      <div className="space-y-0.5">{formatMessage(msg.text)}</div>
+                    ) : (
+                      msg.text
+                    )}
                   </div>
                 </div>
               ))}
               {loading && (
-                <div className="flex gap-2 flex-row">
-                  <div className="w-7 h-7 rounded-full bg-primary flex-shrink-0 flex items-center justify-center">
+                <div className="flex gap-2.5 flex-row">
+                  <div className="w-7 h-7 rounded-full bg-primary flex-shrink-0 flex items-center justify-center mt-0.5">
                     <Bot className="w-3.5 h-3.5 text-white" />
                   </div>
-                  <div className="bg-white px-4 py-3 rounded-2xl rounded-tl-sm shadow-sm">
-                    <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                  <div className="bg-white px-4 py-3 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                    <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                    <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
                   </div>
                 </div>
               )}
@@ -157,7 +210,7 @@ export function ChatWidget() {
             </div>
 
             {/* Input */}
-            <div className="p-3 bg-white border-t border-slate-100 flex gap-2">
+            <div className="p-3 bg-white border-t border-slate-100 flex gap-2 flex-shrink-0">
               <input
                 ref={inputRef}
                 type="text"
@@ -166,14 +219,14 @@ export function ChatWidget() {
                 onKeyDown={handleKeyDown}
                 placeholder="Type your message..."
                 disabled={loading}
-                className="flex-1 text-sm px-3 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary disabled:opacity-50"
+                className="flex-1 text-sm px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary disabled:opacity-50 bg-slate-50"
                 data-testid="input-chat-message"
               />
               <Button
                 size="sm"
                 onClick={sendMessage}
                 disabled={loading || !input.trim()}
-                className="rounded-xl px-3"
+                className="rounded-xl px-3 h-10 w-10"
                 data-testid="button-chat-send"
               >
                 <Send className="w-4 h-4" />
