@@ -278,11 +278,11 @@ export default function Home() {
           <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
             Schedule a consultation with our team to discuss how Blue Mogul can help optimize your technology infrastructure.
           </p>
-          <Link href="/contact">
+          <a href="https://cloud.bluemogul.us/apps/calendar/appointment/LB4RK2zypacY" target="_blank" rel="noopener noreferrer">
             <Button size="lg" className="h-14 px-8 bg-white text-primary hover:bg-blue-50 font-bold text-lg shadow-xl">
               Schedule Consultation
             </Button>
-          </Link>
+          </a>
         </div>
       </section>
     </div>
