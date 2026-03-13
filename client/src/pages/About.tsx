@@ -3,15 +3,13 @@ import { motion } from "framer-motion";
 import { Shield, Target, Award, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import buildingImg from "@assets/2118_1773371443917.jpg";
-import { SiLenovo, SiMicrosoft, SiVerizon } from "react-icons/si";
-
 const partners = [
-  { name: "Lenovo", icon: SiLenovo },
-  { name: "Microsoft", icon: SiMicrosoft },
-  { name: "Verizon", icon: SiVerizon },
-  { name: "V2Cloud", icon: null },
-  { name: "MSP Alliance", icon: null },
-  { name: "D&H Distributing", icon: null },
+  "Lenovo",
+  "Microsoft",
+  "Verizon",
+  "V2Cloud",
+  "MSP Alliance",
+  "D&H Distributing",
 ];
 
 export default function About() {
@@ -124,25 +122,20 @@ export default function About() {
          <div className="mt-16">
            <p className="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-8">Trusted Partners &amp; Vendors</p>
            <div className="flex flex-wrap justify-center items-center gap-8">
-             {partners.map((partner, i) => (
+             {partners.map((name, i) => (
                <motion.div
-                 key={partner.name}
+                 key={name}
                  initial={{ opacity: 0, y: 10 }}
                  whileInView={{ opacity: 1, y: 0 }}
                  viewport={{ once: true }}
                  transition={{ delay: i * 0.07 }}
-                 className="flex flex-col items-center gap-2 group"
+                 className="group"
                >
-                 <div className="h-14 px-6 flex items-center justify-center bg-slate-50 border border-slate-200 rounded-xl group-hover:border-primary/30 group-hover:bg-blue-50 transition-colors">
-                   {partner.icon ? (
-                     <partner.icon className="w-8 h-8 text-slate-500 group-hover:text-primary transition-colors" />
-                   ) : (
-                     <span className="text-sm font-bold text-slate-500 group-hover:text-primary transition-colors whitespace-nowrap">
-                       {partner.name}
-                     </span>
-                   )}
+                 <div className="h-14 px-8 flex items-center justify-center bg-slate-50 border border-slate-200 rounded-xl group-hover:border-primary/40 group-hover:bg-blue-50 transition-all">
+                   <span className="text-sm font-bold text-slate-500 group-hover:text-primary transition-colors whitespace-nowrap tracking-wide">
+                     {name}
+                   </span>
                  </div>
-                 <span className="text-xs text-slate-400 group-hover:text-slate-600 transition-colors">{partner.name}</span>
                </motion.div>
              ))}
            </div>
