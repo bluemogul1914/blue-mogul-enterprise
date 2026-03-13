@@ -2,6 +2,17 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Shield, Target, Award, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import buildingImg from "@assets/2118_1773371443917.jpg";
+import { SiLenovo, SiMicrosoft, SiVerizon } from "react-icons/si";
+
+const partners = [
+  { name: "Lenovo", icon: SiLenovo },
+  { name: "Microsoft", icon: SiMicrosoft },
+  { name: "Verizon", icon: SiVerizon },
+  { name: "V2Cloud", icon: null },
+  { name: "MSP Alliance", icon: null },
+  { name: "D&H Distributing", icon: null },
+];
 
 export default function About() {
   return (
@@ -54,9 +65,9 @@ export default function About() {
            <div className="relative">
              <div className="absolute inset-0 bg-primary/20 transform rotate-3 rounded-2xl"></div>
              <img 
-               src="/favicon.png"
-               alt="Blue Mogul"
-               className="relative rounded-2xl shadow-2xl z-10 w-full bg-slate-900 p-8 object-contain"
+               src={buildingImg}
+               alt="801 Travis St, Houston TX — Blue Mogul HQ"
+               className="relative rounded-2xl shadow-2xl z-10 w-full object-cover h-80 md:h-96"
              />
            </div>
          </div>
@@ -97,6 +108,7 @@ export default function About() {
          </div>
        </div>
 
+       {/* CTA + Partners */}
        <div className="container-padding py-24 text-center">
          <h2 className="text-3xl font-bold text-slate-900 mb-6">Join Our Growing List of Partners</h2>
          <p className="text-lg text-slate-600 mb-10 max-w-2xl mx-auto">
@@ -107,6 +119,34 @@ export default function About() {
              Work With Us
            </Button>
          </Link>
+
+         {/* Partner Logos */}
+         <div className="mt-16">
+           <p className="text-sm font-semibold uppercase tracking-widest text-slate-400 mb-8">Trusted Partners &amp; Vendors</p>
+           <div className="flex flex-wrap justify-center items-center gap-8">
+             {partners.map((partner, i) => (
+               <motion.div
+                 key={partner.name}
+                 initial={{ opacity: 0, y: 10 }}
+                 whileInView={{ opacity: 1, y: 0 }}
+                 viewport={{ once: true }}
+                 transition={{ delay: i * 0.07 }}
+                 className="flex flex-col items-center gap-2 group"
+               >
+                 <div className="h-14 px-6 flex items-center justify-center bg-slate-50 border border-slate-200 rounded-xl group-hover:border-primary/30 group-hover:bg-blue-50 transition-colors">
+                   {partner.icon ? (
+                     <partner.icon className="w-8 h-8 text-slate-500 group-hover:text-primary transition-colors" />
+                   ) : (
+                     <span className="text-sm font-bold text-slate-500 group-hover:text-primary transition-colors whitespace-nowrap">
+                       {partner.name}
+                     </span>
+                   )}
+                 </div>
+                 <span className="text-xs text-slate-400 group-hover:text-slate-600 transition-colors">{partner.name}</span>
+               </motion.div>
+             ))}
+           </div>
+         </div>
        </div>
     </div>
   );
