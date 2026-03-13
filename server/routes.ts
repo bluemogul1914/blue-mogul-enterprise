@@ -107,5 +107,58 @@ export async function registerRoutes(
     res.json({ message: "Blog post deleted" });
   });
 
+  app.post("/api/chat", async (req, res) => {
+    const { message, sessionId } = req.body;
+
+    if (!message || typeof message !== "string") {
+      return res.status(400).json({ message: "Message is required" });
+    }
+
+    const apiKey = process.env.ANYTHINGLLM_API_KEY;
+    if (!apiKey) {
+      console.error("[Chat] ANYTHINGLLM_API_KEY is not set");
+      return res.status(500).json({ message: "Chat service is not configured" });
+    }
+
+    const payload = {
+      message,
+      mode: "query",
+      sessionId: sessionId || "chat-widget",
+    };
+
+    console.log("[Chat] Sending request to AnythingLLM:", JSON.stringify(payload));
+
+    try {
+      const response = await fetch(
+        "https://anythingllm.bluemogul.us/api/v1/workspace/customer-support-kb/chat",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${apiKey}`,
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      const rawText = await response.text();
+      console.log(`[Chat] AnythingLLM response status: ${response.status}`);
+      console.log(`[Chat] AnythingLLM response body: ${rawText}`);
+
+      if (!response.ok) {
+        return res.status(response.status).json({
+          message: `Chat service error: ${response.status} ${response.statusText}`,
+          details: rawText,
+        });
+      }
+
+      const data = JSON.parse(rawText);
+      res.json({ reply: data.textResponse || data.text || data.message || "No response received" });
+    } catch (err: any) {
+      console.error("[Chat] Fetch error:", err);
+      res.status(500).json({ message: "Failed to reach chat service", error: err.message });
+    }
+  });
+
   return httpServer;
 }

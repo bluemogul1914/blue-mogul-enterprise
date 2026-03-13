@@ -8,6 +8,7 @@ import { useEffect } from "react";
 // Layout
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { ChatWidget } from "@/components/ui/ChatWidget";
 
 // Pages
 import Home from "@/pages/Home";
@@ -47,6 +48,7 @@ function Router() {
         </Switch>
       </main>
       <Footer />
+      <ChatWidget />
     </div>
   );
 }
