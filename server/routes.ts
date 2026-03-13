@@ -145,15 +145,21 @@ export async function registerRoutes(
       console.log(`[Chat] AnythingLLM response status: ${response.status}`);
       console.log(`[Chat] AnythingLLM response body: ${rawText}`);
 
-      if (!response.ok) {
-        return res.status(response.status).json({
-          message: `Chat service error: ${response.status} ${response.statusText}`,
-          details: rawText,
-        });
+      let data: any;
+      try {
+        data = JSON.parse(rawText);
+      } catch {
+        data = {};
       }
 
-      const data = JSON.parse(rawText);
-      res.json({ reply: data.textResponse || data.text || data.message || "No response received" });
+      if (!response.ok) {
+        const errorMsg = data?.error || data?.message || `Chat service error: ${response.status} ${response.statusText}`;
+        console.error(`[Chat] AnythingLLM error: ${errorMsg}`);
+        return res.status(response.status).json({ message: errorMsg });
+      }
+
+      const reply = data.textResponse || data.text || data.message || "No response received";
+      res.json({ reply });
     } catch (err: any) {
       console.error("[Chat] Fetch error:", err);
       res.status(500).json({ message: "Failed to reach chat service", error: err.message });
