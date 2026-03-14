@@ -11,7 +11,6 @@ const partners = [
   "MSP Alliance",
   "D&H Distributing",
   "Dish",
-  "Yeastar",
 ];
 
 export default function About() {
