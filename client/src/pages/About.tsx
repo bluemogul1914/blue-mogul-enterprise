@@ -10,6 +10,8 @@ const partners = [
   "V2Cloud",
   "MSP Alliance",
   "D&H Distributing",
+  "Dish",
+  "Yeastar",
 ];
 
 export default function About() {
