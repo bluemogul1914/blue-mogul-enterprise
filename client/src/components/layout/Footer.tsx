@@ -36,7 +36,7 @@ export function Footer() {
               <li><Link href="/about" className="hover:text-primary transition-colors">About Us</Link></li>
               <li><Link href="/services" className="hover:text-primary transition-colors">Services</Link></li>
               <li><Link href="/contact" className="hover:text-primary transition-colors">Contact</Link></li>
-              <li><Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
+              <li><a href="https://go.mypartner.io/business-financing/?ref=0014x000018k8VEAAY" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Financing</a></li>
             </ul>
           </div>
 
