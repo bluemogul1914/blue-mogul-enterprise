@@ -1,5 +1,5 @@
 import { type Message, type InsertMessage, messages, type BlogPost, type InsertBlogPost, blogPosts } from "@shared/schema";
-import { db } from "./db";
+import { getDb } from "./db";
 import { eq, desc } from "drizzle-orm";
 
 export interface IStorage {
@@ -13,6 +13,7 @@ export interface IStorage {
 
 export class DatabaseStorage implements IStorage {
   async createMessage(insertMessage: InsertMessage): Promise<Message> {
+    const db = getDb();
     const [message] = await db
       .insert(messages)
       .values(insertMessage)
@@ -21,6 +22,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createBlogPost(post: InsertBlogPost): Promise<BlogPost> {
+    const db = getDb();
     const [blogPost] = await db
       .insert(blogPosts)
       .values(post)
@@ -29,6 +31,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getBlogPosts(): Promise<BlogPost[]> {
+    const db = getDb();
     return await db
       .select()
       .from(blogPosts)
@@ -37,6 +40,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
+    const db = getDb();
     const [post] = await db
       .select()
       .from(blogPosts)
@@ -45,6 +49,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async updateBlogPost(id: number, post: Partial<InsertBlogPost>): Promise<BlogPost | undefined> {
+    const db = getDb();
     const [updated] = await db
       .update(blogPosts)
       .set(post)
@@ -54,6 +59,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async deleteBlogPost(id: number): Promise<boolean> {
+    const db = getDb();
     const result = await db
       .delete(blogPosts)
       .where(eq(blogPosts.id, id))
