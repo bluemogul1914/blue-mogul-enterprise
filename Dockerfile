@@ -6,7 +6,7 @@ WORKDIR /app
 # Copy package files
 COPY package.json package-lock.json ./
 
-# Install dependencies
+# Install all dependencies (including dev)
 RUN npm ci
 
 # Copy source code
@@ -29,12 +29,19 @@ RUN npm ci --omit=dev
 # Copy built files from builder stage
 COPY --from=builder /app/dist ./dist
 
-# Expose port
-EXPOSE 5000
+# Copy public assets if they exist
+COPY --from=builder /app/server/public ./server/public 2>/dev/null || true
 
-# Set environment variables
+# Expose port
+EXPOSE 3000
+
+# Set default environment variables (can be overridden)
 ENV NODE_ENV=production
-ENV PORT=5000
+ENV PORT=3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD node -e "require('http').get('http://localhost:3000', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"
 
 # Start the application
 CMD ["npm", "run", "start"]
