@@ -14,6 +14,7 @@ COPY . .
 
 # Build the application
 RUN npm run build
+RUN mkdir -p server/public
 
 # Production stage
 FROM node:20-alpine AS production
@@ -28,7 +29,7 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 
 # Copy public assets if they exist
-COPY --from=builder /app/server/public ./server/public 2>/dev/null || true
+COPY --from=builder /app/server/public ./server/public
 
 # Expose port
 EXPOSE 3000
