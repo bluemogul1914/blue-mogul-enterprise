@@ -7,7 +7,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 const portal = {
   title: "Client Portal",
   description: "Your all-in-one hub for managing your Blue Mogul services. Access network management, monitor your broadband connection, manage your account, view invoices, and submit support tickets.",
-  url: "https://portal.bluemogul.biz/portal",
+  url: "https://portal.bluemogul.us",
   icon: Users,
   features: ["Network Status & Monitoring", "Usage Statistics", "Account Management", "Billing & Invoices", "Support Tickets", "Service Dashboard"]
 };
