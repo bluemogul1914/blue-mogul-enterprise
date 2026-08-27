@@ -4,6 +4,12 @@ import { Client } from '@hubspot/api-client';
 let connectionSettings: any;
 
 async function getAccessToken() {
+  // Direct access token provided via environment variable (e.g. a HubSpot
+  // private app token). Used when not relying on the Replit connector.
+  if (process.env.HUBSPOT_ACCESS_TOKEN) {
+    return process.env.HUBSPOT_ACCESS_TOKEN;
+  }
+
   if (connectionSettings && connectionSettings.settings.expires_at && new Date(connectionSettings.settings.expires_at).getTime() > Date.now()) {
     return connectionSettings.settings.access_token;
   }
@@ -83,7 +89,7 @@ export async function createHubSpotContact(data: ContactFormData) {
           filterGroups: [{
             filters: [{
               propertyName: 'email',
-              operator: 'EQ',
+              operator: 'EQ' as any,
               value: data.email
             }]
           }],
